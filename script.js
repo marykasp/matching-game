@@ -56,7 +56,7 @@ function movesCounter() {
 // Pick random objects from items array
 function generateRandom(size = 4) {
   let tempArray = [...items];
-  console.log(tempArray);
+
   // array to hold card values
   let cardValues = [];
   // (4 * 4) / 2 - since pairs of objects exist
@@ -64,13 +64,51 @@ function generateRandom(size = 4) {
 
   // iterate over and pick random card
   for (let i = 0; i < size; i++) {
-    console.log(tempArray.length);
     let randomIndex = Math.floor(Math.random() * tempArray.length);
     // push card to cardValues array
-    console.log(randomIndex);
+
     cardValues.push(tempArray[randomIndex]);
     // remove the card object from the temp array
     tempArray.splice(randomIndex, 1);
   }
   return cardValues;
 }
+
+function generateMatrix(cardValues, size = 4) {
+  gameContainer.innerHTML = "";
+  cardValues = [...cardValues, ...cardValues];
+  // shuffle the cards
+  cardValues.sort(() => Math.random() - 0.5);
+  for (let i = 0; i < size * size; i++) {
+    /* create cards
+      front: shows a question mark
+      back: shows the image
+      data-card-value: used to keep track of the cards
+    */
+    gameContainer.innerHTML += `
+   <div class="card-container" data-card-value=${cardValues[i].name}>
+    <div class="card-before">?</div>
+    <div class="card-after">
+      <img src=${cardValues[i].image} class="image" alt=${cardValues[i].name}/>
+    </div>
+   </div>
+   `;
+  }
+
+  // Grid generator
+  gameContainer.style.gridTemplateColumns = `repeat(${size}, auto)`;
+}
+
+// initialize game and function calls
+function initializer() {
+  // clear the results
+  results.innerText = "";
+  // reset score
+  winCount = 0;
+  // generate random cards
+  let cardValues = generateRandom();
+  console.log(cardValues);
+  generateMatrix(cardValues);
+}
+
+initializer();

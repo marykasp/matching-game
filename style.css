@@ -28,4 +28,12 @@ body {
   position: relative;
   display: grid;
   width: 100%;
+  gap: 9.6px;
+}
+
+.card-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
 }
