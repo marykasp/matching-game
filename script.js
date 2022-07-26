@@ -145,7 +145,11 @@ function generateMatrix(cardValues, size = 4) {
             // if wincount is equal to the length of the card list then show that the user has won in the results element
             if (winCount == Math.floor(cardValues.length / 2)) {
               console.log("testing");
-              results.innerHTML = `<h2>You won!</h2><h4>Moves: <span>${movesCount}</span></h4>`;
+              results.innerHTML = `
+              <h2><i class="fa-solid fa-dog"></i>You won!</h2>
+              <h4>Moves: <span>${movesCount}</span></h4>
+              <button id="start">Play Again</button>
+              `;
               controlsContainer.classList.remove("hide");
             }
           } else {
@@ -156,7 +160,7 @@ function generateMatrix(cardValues, size = 4) {
             let delay = setTimeout(() => {
               tempFirst.classList.remove("flipped");
               tempSecond.classList.remove("flipped");
-            }, 1000);
+            }, 960);
             delay;
           }
         }
