@@ -51,12 +51,19 @@ function timeGenerator() {
   let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
   let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
 
-  timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
+  timeValue.innerHTML = `<span>Time:</span> <span id="time">${minutesValue}:${secondsValue}</span>`;
 }
 
 function movesCounter() {
   movesCount += 1;
-  moves.innerHTML = `<span>Moves:</span>${movesCount}`;
+  moves.innerHTML = `<span>Moves:</span> <span id="count">${movesCount}</span>`;
+}
+
+function stopGame() {
+  controlsContainer.classList.remove("hide");
+  stopButton.classList.add("hide");
+  startButton.classList.remove("hide");
+  clearInterval(interval);
 }
 
 // Pick random objects from items array
@@ -111,7 +118,7 @@ function generateMatrix(cardValues, size = 4) {
     card.addEventListener("click", () => {
       // if card is already matched will be ignored
       // if card is not yet matched then..
-      if (!cards.classList.contains("matched")) {
+      if (!card.classList.contains("matched")) {
         // flip the card
         card.classList.add("flipped");
         // firstCard is iniatlized as false
@@ -120,22 +127,37 @@ function generateMatrix(cardValues, size = 4) {
           firstCard = card;
           // first card value will be equal to the currentcard value (name)
           firstCardValue = card.getAttribute("data-card-value");
-        }
-      } else {
-        // incremenent moves
-        movesCounter();
-        secondCard = card;
-        secondCardValue = card.getAttribute("data-card-value");
-        console.log(firstCardValue, secondCardValue);
-        if (secondCardValue === firstCardValue) {
-          firstCard.classList.add("matched");
-          secondCard.classList.add("matched");
-          // reset firstCard to false
-          firstCard = false;
-          // increment winCount
-          winCount += 1;
-          if (winCount == Math.floor(cardValues.length / 1)) {
-            result.innerHTML = `<h2>You won!</h2><h4>Moves: ${movesCount}</h4>`;
+          console.log(firstCardValue);
+        } else {
+          // incremenent moves
+          movesCounter();
+          secondCard = card;
+          secondCardValue = card.getAttribute("data-card-value");
+          console.log(firstCardValue, secondCardValue);
+          // if there is a match
+          if (secondCardValue === firstCardValue) {
+            firstCard.classList.add("matched");
+            secondCard.classList.add("matched");
+            // reset firstCard to false
+            firstCard = false;
+            // increment winCount
+            winCount += 1;
+            // if wincount is equal to the length of the card list then show that the user has won in the results element
+            if (winCount == Math.floor(cardValues.length / 2)) {
+              console.log("testing");
+              results.innerHTML = `<h2>You won!</h2><h4>Moves: <span>${movesCount}</span></h4>`;
+              controlsContainer.classList.remove("hide");
+            }
+          } else {
+            // if the cards do not match - flip the cards back to normal
+            let [tempFirst, tempSecond] = [firstCard, secondCard];
+            firstCard = false;
+            secondCard = false;
+            let delay = setTimeout(() => {
+              tempFirst.classList.remove("flipped");
+              tempSecond.classList.remove("flipped");
+            }, 1000);
+            delay;
           }
         }
       }
@@ -155,4 +177,19 @@ function initializer() {
   generateMatrix(cardValues);
 }
 
-initializer();
+// START GAME
+startButton.addEventListener("click", () => {
+  movesCount = 0;
+  seconds = 0;
+  minutes = 0;
+  controlsContainer.classList.add("hide");
+  stopButton.classList.remove("hide");
+  startButton.classList.add("hide");
+  // start timer
+  interval = setInterval(timeGenerator, 1000);
+  moves.innerHTML = `<span>Moves:</span> ${movesCount}`;
+  initializer();
+});
+
+// STOP GAME
+stopButton.addEventListener("click", stopGame);
