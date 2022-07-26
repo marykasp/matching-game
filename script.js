@@ -10,6 +10,8 @@ let cards;
 let interval;
 let firstCard = false;
 let secondCard = false;
+let firstCardValue;
+let secondCardValue;
 
 // Items array
 const items = [
@@ -97,6 +99,43 @@ function generateMatrix(cardValues, size = 4) {
 
   // Grid generator
   gameContainer.style.gridTemplateColumns = `repeat(${size}, auto)`;
+
+  // Cards
+  let cards = document.querySelectorAll(".card-container");
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      // if card is already matched will be ignored
+      // if card is not yet matched then..
+      if (!cards.classList.contains("matched")) {
+        // flip the card
+        card.classList.add("flipped");
+        // firstCard is iniatlized as false
+        if (!firstCard) {
+          // current card will become first card
+          firstCard = card;
+          // first card value will be equal to the currentcard value (name)
+          firstCardValue = card.getAttribute("data-card-value");
+        }
+      } else {
+        // incremenent moves
+        movesCounter();
+        secondCard = card;
+        secondCardValue = card.getAttribute("data-card-value");
+        console.log(firstCardValue, secondCardValue);
+        if (secondCardValue === firstCardValue) {
+          firstCard.classList.add("matched");
+          secondCard.classList.add("matched");
+          // reset firstCard to false
+          firstCard = false;
+          // increment winCount
+          winCount += 1;
+          if (winCount == Math.floor(cardValues.length / 1)) {
+            result.innerHTML = `<h2>You won!</h2><h4>Moves: ${movesCount}</h4>`;
+          }
+        }
+      }
+    });
+  });
 }
 
 // initialize game and function calls
