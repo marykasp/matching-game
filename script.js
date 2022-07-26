@@ -15,18 +15,22 @@ let secondCardValue;
 
 // Items array
 const items = [
-  { name: "anaconda", image: "./img/anaconda.png" },
-  { name: "bee", image: "./img/bee.png" },
-  { name: "chameleon", image: "./img/chameleon.png" },
-  { name: "cockatoo", image: "./img/cockatoo.png" },
-  { name: "crocodile", image: "./img/crocodile.png" },
-  { name: "gorilla", image: "./img/gorilla.png" },
-  { name: "macaw", image: "./img/macaw.png" },
-  { name: "monkey", image: "./img/monkey.png" },
-  { name: "piranha", image: "./img/piranha.png" },
-  { name: "sloth", image: "./img/sloth.png" },
-  { name: "tiger", image: "./img/tiger.png" },
-  { name: "toucan", image: "./img/toucan.png" },
+  { name: "airedale", image: "./img/dogs/AIREDALE-TERRIER.svg" },
+  { name: "australian", image: "./img/dogs/AUSTRALIAN.svg" },
+  { name: "basenji", image: "./img/dogs/BASENJI.svg" },
+  { name: "belgian shepherd", image: "./img/dogs/BELGIAN-SHEPHERD.svg" },
+  { name: "border collie", image: "./img/dogs/BORDER-COLLIE.svg" },
+  { name: "bull dog", image: "./img/dogs/BULL-DOG.svg" },
+  { name: "chinese sharpei", image: "./img/dogs/CHINESE-SHARPEI.svg" },
+  { name: "chow chow", image: "./img/dogs/CHOW-CHOW.svg" },
+  { name: "cocker spaniel", image: "./img/dogs/COCKER-SPANIEL.svg" },
+  { name: "dalmation", image: "./img/dogs/DALMATION.svg" },
+  { name: "english setter", image: "./img/dogs/ENGLISH-SETTER.svg" },
+  { name: "irish setter", image: "./img/dogs/IRISH-SETTER.svg" },
+  { name: "pharoah hound", image: "./img/dogs/PHAROAH-HOUND.svg" },
+  { name: "saluki", image: "./img/dogs/SALUKI.svg" },
+  { name: "shetland sheepdog", image: "./img/dogs/SHETLAND-SHEEPDOG.svg" },
+  { name: "shiba ini", image: "./img/dogs/SHIBA-INU.svg" },
 ];
 
 // Initial Time
@@ -79,6 +83,7 @@ function generateRandom(size = 4) {
 function generateMatrix(cardValues, size = 4) {
   gameContainer.innerHTML = "";
   cardValues = [...cardValues, ...cardValues];
+  console.log(cardValues);
   // shuffle the cards
   cardValues.sort(() => Math.random() - 0.5);
   for (let i = 0; i < size * size; i++) {

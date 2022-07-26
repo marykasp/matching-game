@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #f4cf31;
+  background-color: #6563FF;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,8 +17,8 @@ body {
 
 .wrapper {
   background-color: #fff;
-  width: 26.87em; /* 429px */
-  padding: 2.5em 3em;
+  width: 40.87em; /* 429px */
+  padding: 1.5em 3em;
   border-radius: 10px;
   box-shadow: 0 14px 44px rgba(86, 66, 0, 0.2);
 }
@@ -32,8 +32,8 @@ body {
 
 .card-container {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   cursor: pointer;
 }
 
@@ -46,15 +46,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #000;
+  border: 3px solid #d4d2d2;
   transition: transform 0.6s ease;
   backface-visibility: hidden;
 }
 
+.card-after img {
+  width: 120px;
+  height: 120px;
+}
+
 .card-before {
-  background-color: #f4cf31;
-  font-size: 2rem;
+  background-color: #e9e9e9;
+  font-size: 3rem;
   font-weight: 600;
+  color: #6563FF;
 }
 
 .card-after {
